@@ -2,7 +2,10 @@
 
 var $gameInfo = $("#gameInfo");
 var $coinAmmount = $("#number-to-match");
-var $appraisalValue = $("appraisalValue");
+var $appraisalValue = $("#appraisalValue");
+var $sales = $("#sales");
+var $disappointed = $("#disappointed");
+
 
 var $goldButton = $(".btn1");
 
@@ -36,8 +39,6 @@ var compArrayOptions = [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 
 
 function newGame() {
 
-  wins = 0;
-  losses = 0;
   counter = 0;
 
   var compIndex = Math.floor(Math.random() * compArrayOptions.length);
@@ -82,12 +83,15 @@ if (counter === targetNumber) {
   alert("You've Got Yourself a Sale!");
   wins++;
   newGame();
+  $("#sales").text(wins);
 }
 
 else if (counter > targetNumber) {
   alert("No Deal. Consider lowering your prices next time.");
   losses++;
   newGame();
+  $("#disappointed").text(losses);
+
 }
 
 });
