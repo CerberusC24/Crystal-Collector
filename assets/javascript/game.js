@@ -2,95 +2,126 @@ $(document).ready(function () {
 
   // create variables to fetch elements off the html page
 
-  var $gameInfo = $("#gameInfo");
-  var $coinAmmount = $("#number-to-match");
-  var $appraisalValue = $("#appraisalValue");
-  var $sales = $("#sales");
-  var $disappointed = $("#disappointed");
+  var $flavorText = $("#flavor-text");
+  var $gameStats = $("#game-stats");
+  var $buttonArea = $("#button-area");
 
-
-  var $goldButton = $(".btn1");
-
-  var $whiteButton = $(".btn2");
-
-  var $redButton = $(".btn3");
-
-  var $blueButton = $(".btn4");
-
-  $goldButton.addClass("crystal-button");
-  $whiteButton.addClass("crystal-button");
-  $redButton.addClass("crystal-button");
-  $blueButton.addClass("crystal-button");
-
-  // create arrays with values for each crystal
-  // create array with values for the target number
+  // create golbal variables
 
   var wins = 0;
   var losses = 0;
   var counter = 0;
+  var targetNumber = 0;
 
-  var crystalValuesBlue = [1, 2];
-  var crystalValuesRed = [3, 4, 5];
-  var crystalValuesWhite = [6, 7, 8];
-  var crystalValuesGold = [9, 10];
-
-  var compArrayOptions = [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100];
-
-
-  // make a function that selects a number for each crystal and the target, and starts a new game
+  // make a function that sets the parameters for a New Game scenario
 
   function newGame() {
 
+    // sets running total of user input to 0
+    
     counter = 0;
 
-    var compIndex = Math.floor(Math.random() * compArrayOptions.length);
-    targetNumber = compArrayOptions[compIndex];
+    // Instead of creating a separate array for the range of values for the target and crystals, create variables and use this equation to determine min/max range
+    // for this equation, mental note: the number on the outside will always be your minimum. Adding the inside number will be your maximum.
 
-    $coinAmmount.text(targetNumber);
+    targetNumber = Math.floor(Math.random() * 50) + 50;
 
-    var crystalIndex1 = Math.floor(Math.random() * crystalValuesGold.length);
-    goldButtonValue = crystalValuesGold[crystalIndex1];
+    var goldButtonValue = Math.floor(Math.random() * 1) + 9;
 
-    var crystalIndex2 = Math.floor(Math.random() * crystalValuesWhite.length);
-    whiteButtonValue = crystalValuesWhite[crystalIndex2];
+    var whiteButtonValue = Math.floor(Math.random() * 2) + 6;
 
-    var crystalIndex3 = Math.floor(Math.random() * crystalValuesRed.length);
-    redButtonValue = crystalValuesRed[crystalIndex3];
+    var redButtonValue = Math.floor(Math.random() * 2) + 3;
 
-    var crystalIndex4 = Math.floor(Math.random() * crystalValuesBlue.length);
-    blueButtonValue = crystalValuesBlue[crystalIndex4];
+    var blueButtonValue = Math.floor(Math.random() * 1) + 1;
 
-    $goldButton.attr("data-crystalvalue", goldButtonValue);
-    $whiteButton.attr("data-crystalvalue", whiteButtonValue);
-    $redButton.attr("data-crystalvalue", redButtonValue);
-    $blueButton.attr("data-crystalvalue", blueButtonValue);
+    $gameStats.html(`
+    <div class="row text-center">
+    <div class="col-12 col-md-6">
+    <h4 class="text-light">Coin Amount Offered: <span>${targetNumber}</span></h4>
+    <h4 class="text-light">Your Current Appraisal: <span id="counter">${counter}</span></h4>
+    </div>
+    <div class="col-12 col-md-6">
+    <h4 class="text-light">Sales Made: <span>${wins}</span></h4>
+    <h4 class="text-light">Disappointed Customers: <span>${losses}</span></h4>
+    </div>
+    </div>`);
 
-    $("#number-to-guess").text(targetNumber);
+    $flavorText.html(`
+    <div class="jumbotron jumbotron-fluid bg-dark text-light text-center p-3">
+    <h1>Greetings Prospector!</h1>
+    <div class="row">
+    <div class="col-12 div-md-6">
+    <h4 class="mb-3">I've heard you got some rare jewels in stock. But I have a strict price. Don't try to gauge
+    me.</h4>
+    <h5 class="text-warning">Instructions:</h5>
+    <p class="text-warning">Appraise your crystals to match the patron's offer. But be careful not to overcharge
+    or they'll walk.</p>
+    <p class="text-warning">Prices for each crystal fluctuate due to supply and demand. Make sure to pay
+    attention.</p>
+    </div>
+    </div>
+    </div>`);
 
-    $("#appraisalValue").text(counter);
+    $buttonArea.html(`
+    <div class="container-fluid">
+    <div class="row mx-auto text-center text-light justify-content-around">
+    <div class="card bg-dark border-light" style="width: 18rem;">
+    <img class="border" src="assets/images/gold-crystal.png" class="card-img-top" alt="Gold Crystal Image">
+    <div class="card-body">
+    <h5 class="card-title">The Gilden Crystal</h5>
+    <p class="card-text">An extremely valuable crystal of Mythical origins</p>
+    <button href="#" class="btn btn-warning text-dark crystal-button btn1" data-crystalvalue = ${goldButtonValue}>Appraise</button>
+    </div>
+    </div>
+    <div class="card bg-dark border-light" style="width: 18rem;">
+    <img class="border" src="assets/images/white-crystal.png" class="card-img-top" alt="White Crystal Image">
+    <div class="card-body">
+    <h5 class="card-title">The Dymund Crystal</h5>
+    <p class="card-text">An very Rare radiant gem worth a large amount of coin</p>
+    <button href="#" class="btn btn-light text-dark crystal-button  btn2" data-crystalvalue = ${whiteButtonValue}>Appraise</button>
+    </div>
+    </div>
+    <div class="card bg-dark border-light" style="width: 18rem;">
+    <img class="border" src="assets/images/red-crystal.png" class="card-img-top" alt="Red Crystal Image">
+    <div class="card-body">
+    <h5 class="card-title">The Rubee Crystal</h5>
+    <p class="card-text">A vibrant Uncommon stone of moderate value</p>
+    <button href="#" class="btn btn-danger text-dark crystal-button  btn3" data-crystalvalue = ${redButtonValue}>Appraise</button>
+    </div>
+    </div>
+    <div class="card bg-dark border-light" style="width: 18rem;">
+    <img class="border" src="assets/images/blue-crystal.png" class="card-img-top" alt="Blue Crystal Image">
+    <div class="card-body">
+    <h5 class="card-title">The Safire Crystal</h5>
+    <p class="card-text">A Commonplace rock. Not worth very much</p>
+    <button href="#" class="btn btn-primary text-dark crystal-button  btn4" data-crystalvalue = ${blueButtonValue}>Appraise</button>
+    </div>
+    </div>
+    </div>
+    </div>`);
   }
 
   newGame();
 
-  $(".crystal-button").on("click", function () {
+  $buttonArea.on("click",".crystal-button", function () {
 
     var crystalValue = ($(this).attr("data-crystalvalue"));
     crystalValue = parseInt(crystalValue);
 
     counter += crystalValue;
 
-    $("#appraisalValue").text(counter);
+    // write counter to page
+    $("#counter").text(counter);
 
-    if (counter === targetNumber) {
+    if (counter == targetNumber) {
       alert("You've Got Yourself a Sale!");
       wins++;
       newGame();
-      $("#sales").text(wins);
+
     } else if (counter > targetNumber) {
       alert("No Deal. Consider lowering your prices next time.");
       losses++;
       newGame();
-      $("#disappointed").text(losses);
 
     }
 
