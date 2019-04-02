@@ -1,97 +1,99 @@
-// create variables to fetch elements off the html page
+$(document).ready(function () {
 
-var $gameInfo = $("#gameInfo");
-var $coinAmmount = $("#number-to-match");
-var $appraisalValue = $("#appraisalValue");
-var $sales = $("#sales");
-var $disappointed = $("#disappointed");
+  // create variables to fetch elements off the html page
 
-
-var $goldButton = $(".btn1");
-
-var $whiteButton = $(".btn2");
-
-var $redButton = $(".btn3");
-
-var $blueButton = $(".btn4");
-
-$goldButton.addClass("crystal-button");
-$whiteButton.addClass("crystal-button");
-$redButton.addClass("crystal-button");
-$blueButton.addClass("crystal-button");
-
-// create arrays with values for each crystal
-// create array with values for the target number
-
-var wins = 0;
-var losses = 0;
-var counter = 0;
-
-var crystalValuesBlue = [1, 2];
-var crystalValuesRed = [3, 4, 5];
-var crystalValuesWhite = [6, 7, 8];
-var crystalValuesGold = [9, 10];
-
-var compArrayOptions = [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100];
+  var $gameInfo = $("#gameInfo");
+  var $coinAmmount = $("#number-to-match");
+  var $appraisalValue = $("#appraisalValue");
+  var $sales = $("#sales");
+  var $disappointed = $("#disappointed");
 
 
-// make a function that selects a number for each crystal and the target, and starts a new game
+  var $goldButton = $(".btn1");
 
-function newGame() {
+  var $whiteButton = $(".btn2");
 
-  counter = 0;
+  var $redButton = $(".btn3");
 
-  var compIndex = Math.floor(Math.random() * compArrayOptions.length);
-  targetNumber = compArrayOptions[compIndex];
+  var $blueButton = $(".btn4");
 
-  $coinAmmount.text(targetNumber);
+  $goldButton.addClass("crystal-button");
+  $whiteButton.addClass("crystal-button");
+  $redButton.addClass("crystal-button");
+  $blueButton.addClass("crystal-button");
 
-  var crystalIndex1 = Math.floor(Math.random() * crystalValuesGold.length);
-  goldButtonValue = crystalValuesGold[crystalIndex1];
+  // create arrays with values for each crystal
+  // create array with values for the target number
 
-  var crystalIndex2 = Math.floor(Math.random() * crystalValuesWhite.length);
-  whiteButtonValue = crystalValuesWhite[crystalIndex2];
+  var wins = 0;
+  var losses = 0;
+  var counter = 0;
 
-  var crystalIndex3 = Math.floor(Math.random() * crystalValuesRed.length);
-  redButtonValue = crystalValuesRed[crystalIndex3];
+  var crystalValuesBlue = [1, 2];
+  var crystalValuesRed = [3, 4, 5];
+  var crystalValuesWhite = [6, 7, 8];
+  var crystalValuesGold = [9, 10];
 
-  var crystalIndex4 = Math.floor(Math.random() * crystalValuesBlue.length);
-  blueButtonValue = crystalValuesBlue[crystalIndex4];
+  var compArrayOptions = [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100];
 
-  $goldButton.attr("data-crystalvalue", goldButtonValue);
-  $whiteButton.attr("data-crystalvalue", whiteButtonValue);
-  $redButton.attr("data-crystalvalue", redButtonValue);
-  $blueButton.attr("data-crystalvalue", blueButtonValue);
 
-  $("#number-to-guess").text(targetNumber);
+  // make a function that selects a number for each crystal and the target, and starts a new game
 
-  $("#appraisalValue").text(counter);
-}
+  function newGame() {
 
-newGame();
+    counter = 0;
 
-$(".crystal-button").on("click", function() {
+    var compIndex = Math.floor(Math.random() * compArrayOptions.length);
+    targetNumber = compArrayOptions[compIndex];
 
-var crystalValue = ($(this).attr("data-crystalvalue"));
-crystalValue = parseInt(crystalValue);
+    $coinAmmount.text(targetNumber);
 
-counter += crystalValue;
+    var crystalIndex1 = Math.floor(Math.random() * crystalValuesGold.length);
+    goldButtonValue = crystalValuesGold[crystalIndex1];
 
-$("#appraisalValue").text(counter);
+    var crystalIndex2 = Math.floor(Math.random() * crystalValuesWhite.length);
+    whiteButtonValue = crystalValuesWhite[crystalIndex2];
 
-if (counter === targetNumber) {
-  alert("You've Got Yourself a Sale!");
-  wins++;
+    var crystalIndex3 = Math.floor(Math.random() * crystalValuesRed.length);
+    redButtonValue = crystalValuesRed[crystalIndex3];
+
+    var crystalIndex4 = Math.floor(Math.random() * crystalValuesBlue.length);
+    blueButtonValue = crystalValuesBlue[crystalIndex4];
+
+    $goldButton.attr("data-crystalvalue", goldButtonValue);
+    $whiteButton.attr("data-crystalvalue", whiteButtonValue);
+    $redButton.attr("data-crystalvalue", redButtonValue);
+    $blueButton.attr("data-crystalvalue", blueButtonValue);
+
+    $("#number-to-guess").text(targetNumber);
+
+    $("#appraisalValue").text(counter);
+  }
+
   newGame();
-  $("#sales").text(wins);
-}
 
-else if (counter > targetNumber) {
-  alert("No Deal. Consider lowering your prices next time.");
-  losses++;
-  newGame();
-  $("#disappointed").text(losses);
+  $(".crystal-button").on("click", function () {
 
-}
+    var crystalValue = ($(this).attr("data-crystalvalue"));
+    crystalValue = parseInt(crystalValue);
+
+    counter += crystalValue;
+
+    $("#appraisalValue").text(counter);
+
+    if (counter === targetNumber) {
+      alert("You've Got Yourself a Sale!");
+      wins++;
+      newGame();
+      $("#sales").text(wins);
+    } else if (counter > targetNumber) {
+      alert("No Deal. Consider lowering your prices next time.");
+      losses++;
+      newGame();
+      $("#disappointed").text(losses);
+
+    }
+
+  });
 
 });
