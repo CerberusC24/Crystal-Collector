@@ -1,3 +1,7 @@
 body {
   background-image: url("../images/large-crystal-bg.jpg");
 }
+
+.custom-brand {
+  font-family: 'Germania One', cursive;
+}
