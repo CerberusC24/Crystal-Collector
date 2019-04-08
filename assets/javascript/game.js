@@ -47,7 +47,8 @@ $(document).ready(function () {
     </div>`);
 
     $flavorText.html(`
-    <div class="jumbotron jumbotron-fluid bg-dark text-light text-center p-3">
+    <div class="container">
+    <div class="mt-5 jumbotron jumbotron-fluid bg-dark text-light text-center p-3">
     <h1>Greetings Prospector!</h1>
     <div class="row">
     <div class="col-12 div-md-6">
@@ -58,6 +59,7 @@ $(document).ready(function () {
     or they'll walk.</p>
     <p class="text-warning">Prices for each crystal fluctuate due to supply and demand. Make sure to pay
     attention.</p>
+    </div>
     </div>
     </div>
     </div>`);
